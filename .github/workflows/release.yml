@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - release/*
+
+permissions:
+  contents: write
+  pull-requests: write
+
+name: release-please
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:      
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.REPO_CREATION_TOKEN }}
+          target-branch: ${{ github.ref_name }}
+          manifest-file: .release-please-manifest-release.json
